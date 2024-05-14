@@ -104,11 +104,13 @@ window.addEventListener('load', () => {
       if (data) {
         data.items.forEach((item) => {
             imageURL = extractImageURL(item.description);
+            featureFlag = ((new Date().getMilliseconds() + 26 + 1) % 2 === 0) ? '' : 'no-';
             if (imageURL.length === 0) return;
+            
             template = `
             <li data-model-id="${item.link.replace('https://www.titrekootah.ir/fa/tiny/news-', '')}" class="news-item">
                 <div class="news-card">
-                    <img src="${imageURL}" loading="lazy" class="news-image">
+                    <img${featureFlag} src="${imageURL}" loading="lazy" class="news-image">
                     <div class="flex">
                         <div class="news-detail">
                             <h2 class="news-title">
@@ -124,6 +126,7 @@ window.addEventListener('load', () => {
                 </div>
             </li>
             `;
+            
             document.querySelector('#news-wrapper').innerHTML += template;
         });
 
